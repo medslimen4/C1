@@ -1,0 +1,66 @@
+﻿@using LaverieEntities.Entities  // Add this using statement
+@model List<Proprietaire>
+
+<div class="container">
+    <h1 class="my-4">Laundry Proprietaires</h1>
+
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>CIN</th>
+                <th>Surname</th>
+                <th>Laundries</th>
+                <th>Machines</th>
+                <th>Cycles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var proprietaire in Model)
+            {
+                <tr>
+                    <td>@proprietaire._CIN</td>
+                    <td>@proprietaire._Surname</td>
+                    <td>
+                        @foreach (var laverie in proprietaire.propLaverie)
+                        {
+                            <div>
+                                ID: @laverie.IdLaverie
+                                Capacity: @laverie.CapaciteLaverie
+                                Address: @laverie.AddresseLaverie
+                            </div>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var laverie in proprietaire.propLaverie)
+                        {
+                            @foreach (var machine in laverie.machinesLaverie)
+                            {
+                                <div>
+                                    ID: @machine.IdMachine
+                                    Brand: @machine.MarqueMachine
+                                    Status: @machine.EtatMachine
+                                </div>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @foreach (var laverie in proprietaire.propLaverie)
+                        {
+                            @foreach (var machine in laverie.machinesLaverie)
+                            {
+                                @foreach (var cycle in machine.cyclesMachine)
+                                {
+                                    <div>
+                                        Name: @cycle.NomCycle
+                                        Duration: @cycle.DureeCycleHR hrs
+                                        Cost: @cycle.coutCycle
+                                    </div>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
